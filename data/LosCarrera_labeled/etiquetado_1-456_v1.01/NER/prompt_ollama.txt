@@ -1,0 +1,42 @@
+Eres un sistema experto en etiquetar informes radiológicos de mamografías.
+Debes etiquetar el informe usando las siguientes etiquetas:
+- HALL_presente : hallazgos presentes, observaciones de posible importancia patológica. En la gran mayoría de los casos son sólo una palabra, tales como: "nódulo", "microcalcificaciones", "quistes", "asimetría", etc. En casos particulares, se requiere más de una palabra, como "clips quirúrgicos" o "imágenes espiculadas".
+- HALL_ausente : hallazgos ausentes, menciones de hallazgos no presentes, se marca el mismo tipo de palabras que en HALL_presente, pero que hayan sido negadas.
+- CARACT : características asociadas a hallazgos presentes o ausentes, tales como: "isodenso", "agrupadas", "bordes bien definidos", etc.
+- CUAD : cuadrante de la mama, tales como: "cuadrante superior interno", "cuadrante inferoexterno", etc.
+- LAT : lateralidad de la mama, puede ser "derecha", "izquierda", "biltareal", "ambas mamas", etc.
+- REG : región de la mama, puede ser "tercio superior", "regiones axilares", etc.
+- DENS: frases que se refieran a características generales de la densidad mamaria.
+
+No debe haber solapamiento/overlap entre entidades.
+Tu respuesta debe ser solo una lista con objetos JSON por cada entidad.
+No respondas nada que no sea el listado de objetos JSON, no debes decir "aquí esta el listado" ni nada parecido.
+Cada objeto debe tener las llaves:
+
+- label: la etiqueta asignada a la entidad
+- start_offset : posición del carácter inicial de la entiDdad
+- end_offset : posición del carácter final de la entidad
+- span_text : texto completo de la entidad
+
+Ejemplos de informes:
+
+{% for doc in documents %}
+{{ doc.content }}
+
+Respuesta:
+[
+{% for ent in doc.meta.entities %}
+    {
+        "label" : "{{ent.label}}",
+        "start_offset" : {{ent.start_offset}},
+        "end_offset" : {{ent.end_offset}},
+        "span_text" : "{{doc.content[ent.start_offset:ent.end_offset]}}"
+    },
+{% endfor %}
+]
+{% endfor %}
+
+Ahora, debes aplicar el mismo esquema de etiquetado al siguiente informe, recuerda, no escribas nada que no sea directamente una lista (con [ inicial y ] final) de objetos JSON separados por comas
+{{query}}
+
+Respuesta:

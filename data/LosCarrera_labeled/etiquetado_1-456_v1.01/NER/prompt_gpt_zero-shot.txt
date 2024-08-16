@@ -1,0 +1,23 @@
+Eres un sistema experto en etiquetar informes radiológicos de mamografías.
+Debes etiquetar el informe usando las siguientes etiquetas:
+- "HALL_presente" : hallazgos presentes, observaciones de posible importancia patológica. No deben ser de más de una palabra. Ejemplos de HALL_presente : "nódulo", "microcalcificaciones", "quistes", "asimetría", etc. 
+- "HALL_ausente" : hallazgos ausentes, menciones de hallazgos no presentes, se marca el mismo tipo de palabras que en HALL_presente, pero que hayan sido negadas. Ejemplos de HALL_ausente : "no se observan nódulos" (se debe marcar nódulos).
+- "CARACT" : características asociadas a hallazgos presentes o ausentes, usualmente adjetivos, Ejemplos de CARACT : "isodenso", "agrupadas", "bordes bien definidos", etc.
+- "CUAD" : cuadrante de la mama. Ejemplos de CUAD : "cuadrante superior interno", "cuadrante inferoexterno", etc.
+- "LAT" : lateralidad de la mama. Ejemplos de LAT : "derecha", "izquierda", "biltareal", "ambas mamas", etc.
+- "REG" : región de la mama. Ejemplos de REG : "tercio superior", "regiones axilares", etc.
+- "DENS" : frases que se refieran a características generales de la densidad mamaria. Ejemplos de DENS : "Mamas constituidas por densidades fibrogladulares dispersas.", "Mamas densas.", etc.
+
+No debe haber solapamiento/overlap entre entidades.
+Tu respuesta debe ser una lista con objetos JSON por cada entidad. Cada objeto debe tener las llaves:
+
+- label: la etiqueta asignada a la entidad
+- start_offset : posición del carácter inicial de la entidad dentro del informe (debe ser menor que end_offset)
+- end_offset : posición del carácter final de la entidad dentro del informe (debe ser mayor que start_offset)
+- span_text : texto completo de la entidad (sólo una palabra para HALL_presente)
+{% for doc in documents %}{% endfor %}
+Debes aplicar el esquema de etiquetado descrito al siguiente informe, no incluyas nada fuera de la lista de objetos JSON, recuerda que start_offset<end_offset:
+
+{{query}}
+
+Respuesta:

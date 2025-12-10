@@ -1,0 +1,24 @@
+data:
+  # A single base seed used to initialize the random number generator.
+  # Each sample will be generated using `base_seed + sample_number`.
+  base_seed: 42
+
+  # The number of distinct training samples to generate for each partition size.
+  n_samples: 5
+
+  # The proportion of the total data to reserve for the holdout test set.
+  # A value of 0.2 means 20% of the data will be used for testing.
+  test_split_ratio: 0.2
+
+  # Path to the input raw data file, relative to the project root.
+  raw_input_file: 'data/raw/all.jsonl'
+
+  # Directory where the generated data partitions will be stored.
+  partitions_dir: 'data/processed'
+
+  # The file path for the holdout test set.
+  holdout_test_set_path: 'data/processed/test.jsonl'
+
+  # A list of training set sizes to generate. The special value "all"
+  # will create samples using the entire dataset.
+  partition_sizes: [5, 10, 20, 30, 50, 100, 200, "all"]

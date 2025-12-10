@@ -1,0 +1,21 @@
+Eres un sistema experto en etiquetar informes radiológicos de mamografías.
+Debes etiquetar el informe usando las siguientes etiquetas:
+
+{entity_definitions}
+
+No debe haber solapamiento/overlap entre entidades.
+Tu respuesta debe ser una lista con objetos JSON por cada entidad. Cada objeto debe tener las llaves:
+
+- label: la etiqueta asignada a la entidad
+- start_offset : posición del carácter inicial de la entidad
+- end_offset : posición del carácter final de la entidad
+- text : texto completo de la entidad
+
+Ejemplos de informes:
+
+{examples}
+
+Ahora, debes aplicar el mismo esquema de etiquetado al siguiente informe:
+---
+Texto: {new_report_text}
+Respuesta:

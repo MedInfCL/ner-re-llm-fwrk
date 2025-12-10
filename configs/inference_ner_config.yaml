@@ -1,0 +1,23 @@
+# Task type to guide the evaluation script
+task: ner
+
+# Path to the test data file (.jsonl format).
+test_file: 'data/processed/test.jsonl' 
+
+# A list of the distinct entity types for the NER model.
+# This must match the configuration used during training.
+model:
+  entity_labels:
+    - "HALL_presente"
+    - "HALL_ausente"
+    - "CARACT"
+    - "CUAD"
+    - "LAT"
+    - "REG"
+    - "DENS"
+
+# Directory where the evaluation results will be saved.
+output_dir: 'output/finetuned_results/ner'
+
+# Evaluation batch size.
+batch_size: 16

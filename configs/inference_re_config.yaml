@@ -1,0 +1,19 @@
+# Task type to guide the evaluation script
+task: re
+
+# Path to the test data file (.jsonl format).
+test_file: 'data/processed/test.jsonl'
+
+# A list of the distinct relation types for the RE model.
+# This must match the configuration used during training.
+model:
+  relation_labels:
+    - "describir"
+    - "ubicar"
+    - "No_Relation"
+
+# Directory where the evaluation results will be saved.
+output_dir: 'output/finetuned_results/re'
+
+# Evaluation batch size.
+batch_size: 16

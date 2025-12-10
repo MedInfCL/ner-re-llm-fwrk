@@ -1,0 +1,26 @@
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
+
+# For local models
+transformers==4.47.1
+datasets==3.6.0
+langchain-community==0.3.29
+
+# For RAG
+openai==1.100.2
+sentence-transformers==5.1.0
+faiss-cpu==1.12.0
+boto3==1.40.14
+langfuse==3.3.0
+
+# Utilities
+pyyaml==6.0
+pandas==2.2.2
+scikit-learn==1.6.1
+scikit-multilearn==0.2.0
+tqdm==4.67.1
+seqeval==1.2.2
+pytest==8.3.5
+python-dotenv==1.0.1

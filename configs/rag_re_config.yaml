@@ -1,0 +1,83 @@
+# Configuration for the Retrieval-Augmented Generation (RAG) pipeline.
+# This file centralizes settings for the LLM provider, vector database,
+# and prompting strategies for the RE task.
+
+task: re
+
+# Test file
+test_file: "data/processed/test.jsonl"
+
+# --- LLM Configuration ---
+llm:
+  # The active provider to be used by the factory.
+  # This key determines which client implementation will be loaded.
+  # Supported options: "openai", "ollama"
+  provider: "openai"
+
+  # --- Provider-Specific Configurations ---
+
+  # Settings for the OpenAI client.
+  # These are used only when provider is set to "openai".
+  openai:
+    # Specifies the exact model to use from the OpenAI API.
+    # This can be changed to any compatible model name.
+    # Examples: "gpt-4o", "gpt-4-turbo", "gpt-3.5-turbo"
+    model: "gpt-4.1-mini-2025-04-14"
+
+    # Controls the randomness of the output. Lower values make the model
+    # more deterministic and focused.
+    temperature: 0.1
+
+    # --- Start of new lines to add ---
+    # Settings for handling API requests, including timeouts and retries.
+    request_settings:
+      # The maximum number of times to retry a request if it times out.
+      max_retries: 3
+      # The initial timeout in seconds for the first API call attempt.
+      initial_timeout_seconds: 60
+      # The multiplier to increase the timeout for each subsequent retry.
+      # e.g., 1.5 means the next timeout will be 1.5x the previous one.
+      backoff_factor: 1.5
+
+  # Settings for the Ollama client.
+  # These are used only when provider is set to "ollama".
+  ollama:
+    # The name of the model to use from your local Ollama server.
+    model: "llama2"
+
+    # The base URL of your Ollama server.
+    base_url: "http://localhost:11434"
+
+    # Optional parameters for the Ollama model.
+    llm_parameters: {}
+
+# --- Vector Database Configuration ---
+vector_db:
+  # Path where the FAISS index file will be stored.
+  index_path: "output/vector_db/faiss_index_all_1.bin"
+
+  # Path to the source data used to build the vector database.
+  # This should be the global training set created by generate_partitions.py.
+  source_data_path: "data/processed/train-all/sample-1/train.jsonl"
+
+  # The name of the sentence-transformer model to use for generating embeddings.
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+
+
+# --- RAG Prompting Configuration ---
+rag_prompt:
+  # Path to the text file containing the prompt template.
+  prompt_template_path: "prompts/rag_re_prompt_spanish.txt"
+  
+  # The number of similar examples to retrieve from the vector database
+  # to include in the few-shot prompt.
+  n_examples: 3
+
+  # The list of entity labels to be extracted by the LLM.
+  # Providing a clear name and description for each label is crucial for
+  # guiding the model to make accurate and consistent extractions.
+  relation_labels:
+  - name: "ubicar"
+    description: "va desde una entidad CUAD, REG o LAT hacia un HALL_presente o HALL_ausente. Se utiliza para especificar la ubicación de un hallazgo."
+  - name: "describir"
+    description: "va desde una entidad CARACT hacia una entidad HALL_presente o HALL_ausente. Se utiliza para especificar características de un hallazgo."

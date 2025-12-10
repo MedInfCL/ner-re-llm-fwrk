@@ -1,0 +1,42 @@
+# Configuration for a single training run.
+
+# Seed for reproducibility
+seed: 42
+
+# Training settings
+trainer:
+  n_epochs: 10
+  batch_size: 8
+  learning_rate: 2e-5
+  gradient_accumulation_steps: 1
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  device: "cuda"  # "cuda" or "cpu"
+
+# Model configuration
+model:
+  # Hugging Face model identifier for a pre-trained model.
+  # This can be a model from the hub (e.g., "bert-base-cased") or a local path.
+  base_model: "dccuchile/bert-base-spanish-wwm-cased"
+
+  # A list of the distinct entity types in your dataset.
+  # The data loader will automatically create B- and I- tags for these.
+  entity_labels:
+    - "HALL_presente"
+    - "HALL_ausente"
+    - "CARACT"
+    - "CUAD"
+    - "LAT"
+    - "REG"
+    - "DENS"
+
+# Paths and directories
+paths:
+  # Path to a training data file, relative to the project root.
+  # NOTE: This path is IGNORED when using the batch training script,
+  # as it dynamically finds the training files in the --partition-dir.
+  train_file: 'data/processed/train-5/sample-1/train.jsonl'
+
+  # Directory where the final trained model and associated files will be saved.
+  # The output will be organized into subdirectories based on the experiment name.
+  output_dir: "output/models"

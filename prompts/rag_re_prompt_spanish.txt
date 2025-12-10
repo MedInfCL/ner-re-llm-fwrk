@@ -1,0 +1,27 @@
+Eres un sistema experto en analizar informes radiológicos de mamografías para encontrar relaciones entre entidades.
+Tu tarea es determinar las relaciones entre las entidades que se proporcionan para un informe.
+
+Las relaciones que debes encontrar se definen a continuación:
+{relation_definitions}
+
+Recibirás el texto completo del informe y una lista de las entidades ya identificadas en él, cada una con un "id" único.
+Tu respuesta debe ser únicamente una lista de objetos JSON, donde cada objeto representa una relación que encontraste.
+Cada objeto JSON de relación debe tener exactamente 3 llaves:
+- "from_id": el id de la entidad de origen de la relación.
+- "to_id": el id de la entidad de destino de la relación.
+- "type": el tipo de relación, que debe ser uno de los tipos definidos anteriormente.
+
+A continuación se muestran algunos ejemplos:
+---
+{examples}
+---
+
+Ahora, encuentra todas las relaciones en el siguiente informe.
+
+Texto:
+{new_report_text}
+
+Entidades:
+{entities_json}
+
+Respuesta:
